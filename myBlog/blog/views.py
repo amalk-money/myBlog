@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse
 
 def blogHome(request):
-    return HttpResponse("<h3>This is blogHome. We will keep all post here.</h3>")
+    #return HttpResponse("<h3>This is blogHome. We will keep all post here.</h3>")
+    return render(request, 'blog/blogHome.html')
 
 def blogPost(request, slug):
-    return HttpResponse(f"<h3>This is blogPost: {slug}</h3>")
+    #return HttpResponse(f"<h3>This is blogPost: {slug}</h3>")
+    return render(request, 'blog/blogPost.html', {'slug':slug,})
