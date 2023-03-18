@@ -1,13 +1,17 @@
 from django.shortcuts import render, HttpResponse
-
+from home.models import Contact
 def home(request):
-    #return HttpResponse("<h3>This is home page</h3>")
     return render(request, 'home/home.html')
 
 def contact(request):
-    #return HttpResponse("<h3>This is contact page</h3>")
+    if (request.method == "POST"):
+        name = request.POST['name']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        query = request.POST['query']
+        contact = Contact(name=name, phone=phone, email=email, query=query)
+        contact.save()
     return render(request, 'home/contact.html')
 
 def about(request):
-    #return HttpResponse("<h3>This is about page</h3>")
     return render(request, 'home/about.html')
