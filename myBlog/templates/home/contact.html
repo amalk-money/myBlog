@@ -4,6 +4,8 @@
 Contact Page
 {% endblock title %}
 
+{% block active-contact %} active {% endblock active-contact %}
+
 {% block body %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light">
     <form class="row g-3" action="/contact/" method="POST"> {% csrf_token %}
