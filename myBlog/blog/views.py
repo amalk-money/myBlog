@@ -1,9 +1,10 @@
 from django.shortcuts import render, HttpResponse
+from blog.models import Post
 
 def blogHome(request):
-    #return HttpResponse("<h3>This is blogHome. We will keep all post here.</h3>")
-    return render(request, 'blog/blogHome.html')
+    allPosts = Post.objects.all()
+    params = {'allPosts':allPosts}
+    return render(request, 'blog/blogHome.html', params)
 
 def blogPost(request, slug):
-    #return HttpResponse(f"<h3>This is blogPost: {slug}</h3>")
     return render(request, 'blog/blogPost.html', {'slug':slug,})
