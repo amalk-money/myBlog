@@ -5,5 +5,12 @@ Blog Post Page
 {% endblock title %}
 
 {% block body %}
-This is Blog Post Page. This is blogPost: {{slug}}
+<div class="container my-3">
+<article class="blog-post">
+        <h2 class="blog-post-title mb-1">{{post.title}}</h2>
+        <p class="blog-post-meta">{{post.date}} by <a href="/about">{{post.author}}</a></p>
+        <hr>
+        <p>{{post.content}}</p>
+</article>
+</div>
 {% endblock body %}

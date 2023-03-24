@@ -1,8 +1,11 @@
 from django.shortcuts import render, HttpResponse
 from home.models import Contact
 from django.contrib import messages
+from blog.models import Post
 def home(request):
-    return render(request, 'home/home.html')
+    allPosts = Post.objects.all()
+    params = {'allPosts': allPosts}
+    return render(request, 'home/home.html', params)
 
 def contact(request):
     if (request.method == "POST"):
