@@ -25,3 +25,9 @@ def contact(request):
 
 def about(request):
     return render(request, 'home/about.html')
+
+def search(request):
+    query = request.GET['search']
+    allPosts = Post.objects.filter(title__icontains=query)
+    params = {'allPosts': allPosts}
+    return render(request, 'home/search.html',params)
