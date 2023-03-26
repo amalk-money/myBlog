@@ -10,7 +10,7 @@ Search Page
 <div class="container my-4">
     {% if allPosts|length < 1 %}
     <div class="row mb-2 my-4">
-        <p>Your search - <strong>{{query}}</strong> - did not match any documents.</p>
+        <p>Your search - <strong>{{query|slice:":50"}}...</strong> - did not match any documents.</p>
         <br>
         <p>Suggestions:</p>
         <ul style="margin-left:1.3em;margin-bottom:2em">
