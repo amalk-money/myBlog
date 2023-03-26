@@ -14,7 +14,7 @@ def contact(request):
         email = request.POST['email']
         query = request.POST['query']
 
-        if len(name)<3 or len(email)<15 or len(phone)<10:
+        if len(name)<3 or len(email)<10 or len(phone)<10:
             messages.error(request, "Oops! Please enter the correct details.")
         else:
             contact = Contact(name=name, phone=phone, email=email, query=query)
@@ -29,5 +29,5 @@ def about(request):
 def search(request):
     query = request.GET['search']
     allPosts = Post.objects.filter(content__icontains=query)
-    params = {'allPosts': allPosts}
+    params = {'allPosts': allPosts, 'query':query}
     return render(request, 'home/search.html',params)
