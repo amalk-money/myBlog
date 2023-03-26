@@ -3,8 +3,8 @@ from home.models import Contact
 from django.contrib import messages
 from blog.models import Post
 def home(request):
-    allPosts = Post.objects.all()
-    params = {'allPosts': allPosts}
+    popular = Post.objects.all().order_by('-views').values()[:3]
+    params = {'allPosts': popular}
     return render(request, 'home/home.html', params)
 
 def contact(request):
@@ -28,6 +28,6 @@ def about(request):
 
 def search(request):
     query = request.GET['search']
-    allPosts = Post.objects.filter(title__icontains=query)
+    allPosts = Post.objects.filter(content__icontains=query)
     params = {'allPosts': allPosts}
     return render(request, 'home/search.html',params)
