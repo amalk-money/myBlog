@@ -11,7 +11,7 @@
     {% block script %}{% endblock script %}
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary"  data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">myBlog</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -24,35 +24,105 @@
                     <a class="nav-link {% block active-home %} {% endblock active-home %}" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% block active-blog %} {% endblock active-blog %}" aria-current="page" href="/blog">Blog</a>
+                    <a class="nav-link {% block active-blog %} {% endblock active-blog %}" aria-current="page"
+                       href="/blog">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% block active-about %} {% endblock active-about %}" href="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% block active-contact %} {% endblock active-contact %}" href="/contact">Contact</a>
+                    <a class="nav-link {% block active-contact %} {% endblock active-contact %}"
+                       href="/contact">Contact</a>
                 </li>
             </ul>
             <form class="d-flex" role="search" method="get" action="/search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
+                       id="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <!-- Button to trigger SignUp modal -->
+            <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logInModal">Log In</button>
         </div>
     </div>
 </nav>
 
 <!--
-Alert Section
+Alert Section start
 -->
 
 {% for message in messages %}
 <div class="alert alert-{{ message.tags }} mb-0" role="alert">
-  <strong>{{ message }}</strong>
+    <strong>{{ message }}</strong>
 </div>
 {% endfor %}
 
 <!--
-Alert Section
+Alert Section end
+-->
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="signUpModalTitle">Sign Up</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username-signup" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password1" name="password1">
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="password2" name="password2">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+SignUp Modal Section end
+-->
+
+<!-- LogIn Modal -->
+<div class="modal fade" id="logInModal" tabindex="-1" aria-labelledby="logInModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="logInModalTitle">Log In</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+LogIn Modal Section end
 -->
 
 {% block body %}{% endblock body %}
