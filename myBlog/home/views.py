@@ -49,6 +49,18 @@ def handleSignUp(request):
         password2 = request.POST['password2']
 
         #check/validate input data
+        #username under 10 char
+        if len(username) > 10:
+            messages.error(request, "Username must be under 10 characters.")
+            return redirect('home')
+        #username must not contain special characters
+        if not username.isalnum():
+            messages.error(request, "Username must not contain special characters.")
+            return redirect('home')
+        #check passwords
+        if password1 != password2:
+            messages.error(request, "Please enter correct password.")
+            return redirect('home')
 
         #create user
         user1 = User.objects.create_user(username, email, password1)
