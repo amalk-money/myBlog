@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact
 from django.contrib import messages
 from blog.models import Post
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User #to create the user
+from django.contrib.auth import authenticate, login, logout #user auth + login + logout
 def home(request):
     popular = Post.objects.all().order_by('-views').values()[:3]
     params = {'allPosts': popular}
@@ -43,7 +44,7 @@ def search(request):
 def handleSignUp(request):
     if request.method == 'POST':
         #Get the parameters
-        username = request.POST['username']
+        username = request.POST['username-signup']
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -71,3 +72,31 @@ def handleSignUp(request):
 
     else:
         return HttpResponse("404: Page not found.")
+
+
+def handleLogin(request):
+    if request.method == 'POST':
+        #Get the parameters
+        username_login = request.POST['username-login']
+        password_login = request.POST['password-login']
+
+        #check if user exist
+        user = authenticate(username=username_login, password=password_login)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect('home')
+        else:
+            messages.error(request, "Invalid credentials. Please try again.")
+            return redirect('home')
+
+    else:
+        return HttpResponse("404: Page not found.")
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out.")
+    return redirect('home')
+
+    return HttpResponse('handlelogout')

@@ -72,8 +72,8 @@ Alert Section end
             <div class="modal-body">
                 <form action="/signup" method="post">{% csrf_token %}
                 <div class="mb-3">
-                    <label for="username" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="username-signup" name="username" required>
+                    <label for="username-signup" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username-signup" name="username-signup" required>
                 </div>
                     <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -111,14 +111,14 @@ SignUp Modal Section end
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="/login" method="post">{% csrf_token %}
                 <div class="mb-3">
-                    <label for="username" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <label for="username-login" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username-login" name="username-login" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="password-login" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password-login" name="password-login" required>
                 </div>
                     <button type="submit" class="btn btn-primary">Log In</button>
                     </form>
