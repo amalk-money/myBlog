@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 from . import views
 
+admin.site.site_header = "myBlog Admin"
+admin.site.site_title = "myBlog Admin"
+admin.site.index_title = "myBlog Admin Panel"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
