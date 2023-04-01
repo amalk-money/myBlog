@@ -26,4 +26,4 @@ class Comments(models.Model):
     time = models.DateTimeField(default=now)
 
     def __str__(self):
-        return self.post
+        return self.post.title
