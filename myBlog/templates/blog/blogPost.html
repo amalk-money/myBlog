@@ -6,27 +6,37 @@ Blog Post Page
 
 {% block body %}
 <div class="container my-3">
-<article class="blog-post">
+    <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{post.title}}</h2>
         <p class="blog-post-meta">{{post.date}} by <a href="/about">{{post.author}}</a></p>
         <hr>
         <p>{{post.content}}</p>
         <hr>
-</article>
+    </article>
 </div>
 <div class="container">
-        <form action="/blog/postComment" method="post">{% csrf_token %}
-                <input type="text" name="comment" placeholder="Post here">
-                <input type="hidden" name="postSNo" value="{{post.postID}}">
-                <input type="submit" value="Submit">
-        </form>
-        <div class="row">
-                <div class="col-md-2 bg-success">Image</div>
-                <div class="col-md-10 bg-primary"><b>User 1:</b> This is my comments</div>
+
+    <form action="/blog/postComment" method="post">{% csrf_token %}
+        <div class="mb-3">
+            <label for="postcomments" class="form-label"><strong>Post your Comments</strong></label>
+            <input type="text" class="form-control" name="comment" placeholder="Post your comments here">
         </div>
-        <div class="row">
-                <div class="col-md-2 bg-success">Image</div>
-                <div class="col-md-10 bg-primary"><b>User 2:</b> This is my comments</div>
+        <input type="hidden" name="postSNo" value="{{post.postID}}">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    {% for comment in comments %}
+        <div class="row my-3">
+        <div class="col-md-1">
+            <img src="/static/user.png" class="rounded mx-auto d-block w-100" alt="user">
+
         </div>
+            <div class="col-md-11"><b>{{comment.user.username}}</b>
+                <br>
+                {{comment.time}}
+                <br>
+                {{comment.comment}}
+        </div>
+    {% endfor %}
 </div>
 {% endblock body %}
