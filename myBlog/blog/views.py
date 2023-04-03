@@ -8,7 +8,7 @@ def blogHome(request):
 def blogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
     comments = Comments.objects.filter(post=post)
-    param = {'post': post, 'comments': comments}
+    param = {'post': post, 'comments': comments, 'user':request.user}
     return render(request, 'blog/blogPost.html', param)
 
 from django.contrib import messages
@@ -23,4 +23,4 @@ def postComment(request):
         comment.save()
         messages.success(request, "Your comments posted.")
 
-    return redirect(f"/blog/{post.slug}/")
+    return redirect(f"/blog/{post.slug}")

@@ -5,6 +5,7 @@ Blog Post Page
 {% endblock title %}
 
 {% block body %}
+{% load humanize %}
 <div class="container my-3">
     <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{post.title}}</h2>
@@ -15,28 +16,35 @@ Blog Post Page
     </article>
 </div>
 <div class="container">
-
+    {% if user.is_authenticated %}
     <form action="/blog/postComment" method="post">{% csrf_token %}
         <div class="mb-3">
-            <label for="postcomments" class="form-label"><strong>Post your Comments</strong></label>
+            <label class="form-label"><strong>Post your Comments</strong></label>
             <input type="text" class="form-control" name="comment" placeholder="Post your comments here">
         </div>
         <input type="hidden" name="postSNo" value="{{post.postID}}">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br>
+    {% endif %}
+    {% if comments.count < 1 %}
+    <b> Be the first one to comment</b>
+    {% else %}
+    <b>Comments({{comments.count}}):</b>
     {% for comment in comments %}
-        <div class="row my-3">
+    <div class="row my-3">
         <div class="col-md-1">
             <img src="/static/user.png" class="rounded mx-auto d-block w-100" alt="user">
 
         </div>
-            <div class="col-md-11"><b>{{comment.user.username}}</b>
-                <br>
-                {{comment.time}}
-                <br>
-                {{comment.comment}}
+        <div class="col-md-11"><b>{{comment.user.username}}</b>
+            <br>
+            {{comment.time|naturaltime}}
+            <br>
+            {{comment.comment}}
         </div>
-    {% endfor %}
-</div>
-{% endblock body %}
+        {% endfor %}
+        <hr>
+    </div>
+    {% endif %}
+    {% endblock body %}
