@@ -18,9 +18,16 @@ def postComment(request):
         user = request.user
         postsno = request.POST.get('postSNo')
         post = Post.objects.get(postID=postsno)
+        parentSNo = request.POST.get('parentSNo')
 
-        comment = Comments(comment=comment, user=user, post=post)
-        comment.save()
-        messages.success(request, "Your comments posted.")
+        if parentSNo == "":
+            comment = Comments(comment=comment, user=user, post=post)
+            comment.save()
+            messages.success(request, "Your comments posted.")
+        else:
+            parent = Comments.objects.get(sno=parentSNo)
+            comment = Comments(comment=comment, user=user, post=post, parent=parent)
+            comment.save()
+            messages.success(request, "Your reply posted.")
 
     return redirect(f"/blog/{post.slug}")

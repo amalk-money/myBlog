@@ -23,6 +23,7 @@ Blog Post Page
             <input type="text" class="form-control" name="comment" placeholder="Post your comments here">
         </div>
         <input type="hidden" name="postSNo" value="{{post.postID}}">
+        <input type="hidden" name="parentSNo" value="">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br>
@@ -43,8 +44,31 @@ Blog Post Page
             <br>
             {{comment.comment}}
         </div>
+        <div class="comment-reply mx-0">
+
+            <a class="btn" data-bs-toggle="collapse" href="#replyBox{{comment.sno}}"
+               aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                Reply
+            </a>
+
+            <div class="collapse" id="replyBox{{comment.sno}}">
+                <div class="card card-body my-2">
+                    <form action="/blog/postComment" method="post">{% csrf_token %}
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" name="comment"
+                                   placeholder="Post your reply here">
+                            <input type="hidden" name="parentSNo" value="{{comment.sno}}"><!-- point to parent comment-->
+                        </div>
+                        <input type="hidden" name="postSNo" value="{{post.postID}}">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
         {% endfor %}
-        <hr>
+
     </div>
     {% endif %}
     {% endblock body %}
